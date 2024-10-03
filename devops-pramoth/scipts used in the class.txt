@@ -1,0 +1,236 @@
+#!/bin/bash
+#Script is used to read content of a given file
+fileName=${1}
+
+if  ! [[ ${#} -eq 1 ]]  ; then 
+    echo "You Have to provide input as a file"
+    exit 
+fi 
+
+if ! [[ -e ${fileName} ]] ; then 
+    echo "Given File is not exist" ; 
+    exit
+fi
+
+if [[ -r  ${fileName} ]]  ; then 
+    cat ${fileName} 
+else 
+    echo "You Dont Have Read Permissions"
+fi 
+# [[ ${#} -eq 1 ]] || { echo "You Have to provide input as a file" ; exit ; }
+# [[ -e ${fileName} ]] || { echo "Given File is not exist" ; exit ; }
+# [[ -r  ${fileName} ]] && cat ${fileName} || echo "You Dont Have Read Permissions"
+--------------------------------------------------------------------------------------------------------------------------- 
+#!/bin/bash
+pkgName=${1}
+userId=$(id -u)
+
+if [[ $# -ne 1 ]] ; then 
+    echo "Please pass input as some package name "
+    exit 1
+fi 
+#  && { echo "You are not the root user. Please run this script from root" ; exit ; } 
+if [[ ${userId} -ne 0 ]] ; then 
+   echo "You are not the root user. Please run this script from root"
+   exit 2
+fi 
+if command -v ${pkgName} 1>/dev/null 2>&1 ; then 
+    echo "Your Pkg ${pkgName} is already deployed"
+else 
+    yum install ${pkgName} -y 1>/dev/null 2>&1
+    yumExitSt=$?
+    if [[ ${yumExitSt} -eq 0  ]] ;
+    then 
+       echo "Package is installed successfully"
+    else 
+        echo "Installation is failed"
+    fi 
+fi
+---------------------------------------------------------------------------------- 
+
+#!/bin/bash
+#Shell Script to find the status of a given system service
+serviceName=${1}
+if [[ $# -ne 1 ]] ; then 
+    echo "You have to pass input as service name"
+    echo "Help to run: "
+    echo "<scriptName>  <serviceName>"
+    exit 1
+fi 
+systemctl status ${serviceName} 1>/dev/null 2>&1 
+stValue=$?
+
+if [[ ${stValue} -eq 4  ]] ; then 
+    echo "service is not deployed"
+elif [[  ${stValue} -eq 3  ]] ; then 
+    echo "service is not running"
+elif [[  ${stValue} -eq 0  ]] ; then 
+    echo "Service is running"
+else 
+    echo "Unknown result"
+fi 
+----------------------------------------------------------------------------------------
+
+#!/bin/bash
+#Shell Script to find the status of a given system service
+serviceName=${1}
+if [[ $# -ne 1 ]] ; then 
+    echo "You have to pass input as service name"
+    echo "Help to run: "
+    echo "<scriptName>  <serviceName>"
+    exit 1
+fi 
+systemctl status ${serviceName} 1>/dev/null 2>&1 
+stValue=$?
+
+case ${stValue} in 
+    4)
+      echo "service is not deployed"
+      ;;
+    3)
+      echo "service is not running"
+      ;;
+    0)
+      echo "Service is running" 
+      ;;
+    *) 
+      echo "Unknown result"
+      ;;
+esac 
+
+
+-------------------------------------------------------------------------------------------- 
+#!/bin/bash
+toolName=${1}
+
+if [[ ${#} -ne 1 ]] ; then 
+    echo "Script needs input"
+    echo "Run this script as: "
+    echo "<scriptName> <toolName>"
+    exit 1
+fi 
+
+# command -v ${toolName} 1>/dev/null 2>&1
+# if [[ $? -ne 0 ]]  ; then 
+#     echo "The tool: ${toolName} is not exist on this host"
+#     exit 2
+# fi 
+
+if ! command -v ${toolName} 1>/dev/null 2>&1 ; then 
+    echo "The tool: ${toolName} is not exist on this host"
+    exit 2
+fi 
+
+case ${toolName}  in 
+    docker ) 
+            docker --version | cut -d ' ' -f3 | tr -d ','
+            ;;
+    ansible)
+            ansible --version | awk 'NR==1' | cut -d ' ' -f2
+            ;;
+    java)  
+            java -version 2>&1 | awk 'NR==1' | cut -d ' ' -f3 | tr -d '"'
+            ;;
+    nginx )
+            nginx -version 2>&1| cut -d '/' -f2 
+            ;; 
+    *)
+            echo "We dont have logic to find the version for this tool: ${toolName}"
+            echo "Just update this script to find the version for your tool"
+            ;;
+esac
+------------------------------------------------
+
+#!/bin/bash
+
+if [[ $(id -u) -ne 0 ]] ; then 
+    echo "You must be root to run this script"
+    exit 1
+fi
+
+installPKG(){
+    reqPkg=${1}
+    if command -v ${reqPkg} 1>/dev/null 2>&1 ; then 
+        echo "$(date '+%F %T')  : ${reqPkg} is already deployed"
+    else 
+        echo "$(date '+%F %T')  : Installing ${reqPkg}...."
+        yum install ${reqPkg} -y
+    fi 
+}
+
+# Check if argument is provided
+if [[ -z "$1" ]]; then
+    echo "Usage: $0 <package_name>"
+    exit 1
+fi
+
+# Call the function with the package name as the argument
+installPKG "$1"
+
+-------------------------
+./script_name.sh <package_name>
+-----------------------------------------------
+#!/bin/bash
+source /path of the script 
+
+installPKG "$1"
+
+--------------------------------------------------------------------------
+
+#!/bin/bash
+
+COMMAND=/bin/command
+CUT=/bin/cut
+TR=/bin/tr
+AWK=/bin/awk
+ECHO=/bin/echo
+CAT=/bin/cat
+MAILX=/bin/mailx
+TEE=/bin/tee
+LOG_FILE=/home/root/cronJobsLogs/sendDevOpsToosInfo.log
+
+${ECHO} "Validating docker tool" | ${TEE} -a ${LOG_FILE}
+if ${COMMAND} -v docker 1>/dev/null 2>&1 ; then 
+        DOCKER=$(${COMMAND} -v docker)
+        dockerVer=$(${DOCKER} --version | ${CUT} -d ' ' -f3 | ${TR} -d ',') 
+        ${ECHO} "DOCKER Version is : ${dockerVer} " | ${TEE} -a ${LOG_FILE}
+else
+        dockerVer="Not Found"
+fi
+${ECHO} "Validating ansible tool" | ${TEE} -a ${LOG_FILE}
+if ${COMMAND} -v ansible 1>/dev/null 2>&1 ; then 
+        ANSIBLE=$(${COMMAND} -v ansible)
+        ansibleVer=$(${ANSIBLE} --version | ${AWK} 'NR==1' | ${CUT}  -d ' ' -f2)
+        ${ECHO} "ANSIBLE Version is : ${ansibleVer} " | ${TEE} -a ${LOG_FILE}
+else 
+        ansibleVer="Not Found"
+fi 
+${ECHO} "Validating java tool" >> ${LOG_FILE}
+if ${COMMAND} -v java 1>/dev/null 2>&1 ; then
+        JAVA=$(${COMMAND} -v java )
+        javaVer=$(${JAVA} -version 2>&1 | ${AWK} 'NR==1' | ${CUT}  -d ' ' -f3 | ${TR} -d '"')
+        ${ECHO} "JAVA Version is : ${javaVer} " >> ${LOG_FILE}
+else 
+        javaVer="Not Found"
+fi 
+${ECHO} "Validating nginx tool" >> ${LOG_FILE}
+if ${COMMAND} -v nginx 1>/dev/null 2>&1 ; then
+        NGINX=$( ${COMMAND} -v nginx)
+        nginxVer=$(${NGINX} -version 2>&1| ${CUT}  -d '/' -f2) 
+        ${ECHO} "NGINX Version is : ${nginxVer} " >> ${LOG_FILE}
+else 
+        nginxVer="Not Found"
+fi 
+
+${ECHO} "ToolName       VersionInfo"
+${ECHO} "Docker         ${dockerVer}"
+${ECHO} "ansible     ${ansibleVer}"
+${ECHO} "java           ${javaVer}"
+${ECHO} "nginx          ${nginxVer}"    
+             
+------------------------------------------------------------------------------------------------
+
+
+
+
+---------------------------------------------------------------------------------- 

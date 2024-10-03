@@ -1,0 +1,3 @@
+curl -s -w "%{http_code}" -X GET http://127.0.0.1:5000/getCreds -o myInfo.json
+
+curl -X GET --header 'Content-Type: application/json' 'http://127.0.0.1:5000/upper'  --data '{"input":"pramoth"}'

@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# String Operations
+echo "String Operations:"
+
+str1="Hello" 
+str2="World"
+concatenated="$str1 $str2"
+echo "Concatenated: $concatenated"
+
+str="Hello World"
+length=${#str}
+echo "Length of the string: $length"  
+
+substring=${str:6:5}
+echo "Substring: $substring"
+
+replaced=${str/World/Universe}
+echo "String after replacement: $replaced"
+
+if [[ $str == *"World"* ]]; then
+  echo "String contains 'World'"
+else
+  echo "String does not contain 'World'"
+fi
+------------------------------------------------------------------------------------------
+echo
+# Arithmetic Operations
+echo "Arithmetic Operations:"
+
+a=10
+b=5
+
+sum=$((a + b))
+echo "Sum: $sum"
+
+difference=$((a - b))
+echo "Difference: $difference"
+
+product=$((a * b))
+echo "Product: $product"
+
+quotient=$((a / b))
+echo "Quotient: $quotient"
+
+remainder=$((a % b))
+echo "Remainder: $remainder"
+
+((a++))  # Post-increment
+echo "Incremented value of a: $a"
+
+((a--))  # Post-decrement
+echo "Decremented value of a: $a"
+
+readonly abc=10 
+
+def = abc+15 
+
+abc= abc+15 
+
+25 
+----------------------------------------

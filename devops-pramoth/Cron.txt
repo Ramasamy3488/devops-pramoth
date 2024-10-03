@@ -1,0 +1,15 @@
+sudo yum install croine -y 
+sudo systemctl enable crond
+sudo systemctl start crond
+
+sudo yum install rsyslog
+
+sudo systemctl enable rsyslog
+sudo systemctl start rsyslog
+sudo vim /etc/rsyslog.conf
+
+cat /etc/log/cron
+
+sudo systemctl restart rsyslog
+
+journalctl -u crond

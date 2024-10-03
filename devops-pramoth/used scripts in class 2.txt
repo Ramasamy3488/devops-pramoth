@@ -1,0 +1,84 @@
+For Loop 
+Switch -- Selections 
+while loop 
+Functions 
+Postional parameters 
+array 
+
+> 
+<
+cut < for  file 
+
+cut <<< Strings 
+cut -d ':' -f1 <<< Strings 
+echo "sring" | cut -d ':' -f1 
+cut -d ':' -f1 <<< $(cat /etc/passwd | grep ec2-user)
+--------------------------------------------
+array
+#!/bin/bash
+# Access specific elements of the array
+
+fruits=("apple" "banana" "cherry")
+echo "First fruit: ${fruits[0]}"
+echo "Second fruit: ${fruits[1]}"
+echo "Third Fruit: ${fruits[2]}"
+--------------------------------------------
+
+#!/bin/bash
+# Append new elements to an array
+
+fruits=("apple" "banana" "cherry")
+fruits+=("orange" "grape")
+
+# Print the updated array
+echo "Updated Fruits: ${fruits[@]}"
+
+-------------------------------------------
+
+#!/bin/bash
+# Loop through the array and print each element
+
+fruits=("apple" "banana" "cherry")
+for fruit in "${fruits[@]}"
+do
+    echo "Fruit: $fruit"
+done
+-------------------------------------------------
+
+#!/bin/bash
+# Get the number of elements in the array
+
+fruits=("apple" "banana" "cherry")
+echo "Number of fruits: ${#fruits[@]}"
+Count will start from 1 
+Index start from 0 
+
+----------------------------------------------------------------------------
+
+#!/bin/bash
+# Slice an array to get a subset
+
+fruits=("apple" "banana" "cherry" "orange" "grape")
+echo "Sliced Fruits: ${fruits[@]:2:4}"  # Starts at index 1, gets 3 elements
+
+--------------------------------------------------------------------------- 
+
+#!/bin/bash
+# Remove a specific element from an array
+
+fruits=("apple" "banana" "cherry" "orange")
+unset fruits[4]  # Removes "banana"
+
+# Print the array after removal
+echo "Fruits after removal: ${fruits[@]}"
+------------------------------------------------------------------------ 
+
+#!/bin/bash
+# Script to reverse a word using the rev command
+
+read -p "Enter a word: " word
+reversed=$(echo "$word" | rev)
+
+echo "Reversed word: $reversed"
+-----------------------------------------------------
+

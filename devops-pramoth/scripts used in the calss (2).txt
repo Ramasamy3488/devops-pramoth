@@ -1,0 +1,107 @@
+#!/bin/bash
+serviceName=${1}
+mailTo=ravipramoth@gmail.com
+GREP=/bin/grep
+WC=/usr/bin/wc
+ECHO=/bin/echo
+HOSTNAME=/usr/bin/hostname
+MAILX=/usr/bin/mailx 
+TEE=/usr/bin/tee
+LOG_FILE=/root/log/$(basename $0)_$(date '+%F').log
+if [[ ${pc} -eq 0 ]] ; then
+    ${ECHO} " $(date '+%F')Service ${serviceName} is not up and running on host: $(${HOSTNAME}) " | ${TEE} -a ${LOG_FILE}
+    ${ECHO} " $(date '+%F') Service ${serviceName} is not up and running on host: $(${HOSTNAME})"  | ${MAILX} -s "Alert Service ${serviceName} status" ${mailTo}
+else
+    ${ECHO} "$(date '+%F') Service ${serviceName} is up and running" | ${TEE} -a ${LOG_FILE}
+    ${ECHO} "$(date '+%F') Service ${serviceName} is up and running"
+fi
+
+---------------------------------------------------------------------
+
+#!/bin/bash
+COMMAND=/bin/command
+CUT=/bin/cut
+TR=/bin/tr
+AWK=/bin/awk
+ECHO=/bin/echo
+CAT=/bin/cat
+MAILX=/bin/mailx
+TEE=/bin/tee
+LOG_FILE=/root/log/senddevops.log
+${ECHO} $(date '+%F') "Validating docker tool" | ${TEE} -a ${LOG_FILE}
+if ${COMMAND} -v docker 1>/dev/null 2>&1 ; then 
+        DOCKER=$(${COMMAND} -v docker)
+        dockerVer=$(${DOCKER} --version | ${CUT} -d ' ' -f3 | ${TR} -d ',') 
+        ${ECHO} $(date '+%F') "DOCKER Version is : ${dockerVer} " | ${TEE} -a ${LOG_FILE}
+else
+        dockerVer="Not Found"
+fi
+${ECHO} $(date '+%F') "Validating ansible tool" | ${TEE} -a ${LOG_FILE}
+if ${COMMAND} -v ansible 1>/dev/null 2>&1 ; then 
+        ANSIBLE=$(${COMMAND} -v ansible)
+        ansibleVer=$(${ANSIBLE} --version | ${AWK} 'NR==1' | ${CUT}  -d ' ' -f3 | tr -d ']')
+        ${ECHO} $(date '+%F') "ANSIBLE Version is : ${ansibleVer} " | ${TEE} -a ${LOG_FILE}
+else 
+        ansibleVer="Not Found"
+fi 
+${ECHO} $(date '+%F') "Validating java tool" >> ${LOG_FILE}
+if ${COMMAND} -v java 1>/dev/null 2>&1 ; then
+        JAVA=$(${COMMAND} -v java )
+        javaVer=$(${JAVA} -version 2>&1 | ${AWK} 'NR==1' | ${CUT}  -d ' ' -f3 | ${TR} -d '"')
+        ${ECHO} $(date '+%F') "JAVA Version is : ${javaVer} " >> ${LOG_FILE}
+else 
+        javaVer="Not Found"
+fi 
+${ECHO} $(date '+%F') "Validating nginx tool" >> ${LOG_FILE}
+if ${COMMAND} -v nginx 1>/dev/null 2>&1 ; then
+        NGINX=$( ${COMMAND} -v nginx)
+        nginxVer=$(${NGINX} -version 2>&1| ${CUT}  -d '/' -f2) 
+        ${ECHO} $(date '+%F') "NGINX Version is : ${nginxVer} " >> ${LOG_FILE}
+else 
+        nginxVer="Not Found"
+fi 
+
+${ECHO} "ToolName       VersionInfo"
+${ECHO} "Docker         ${dockerVer}"
+${ECHO} "ansible     ${ansibleVer}"
+${ECHO} "java           ${javaVer}"
+${ECHO} "nginx          ${nginxVer}"    
+             
+
+${CAT} << EOF | ${MAILX} -s "$(${ECHO} -e "DevOps Tools Info on $(hostname)\nContent-Type: text/html")" ravipramoth@gmail.com
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+         Automation By Pramoth RAvi 
+    </title>
+</head>
+
+<body>
+    <h2>Please Find Below Table For DevOps Tools Versions </h1>
+    <table border="1">
+        <tr>
+            <th>ToolName</th>
+            <th>Version</th>
+        </tr>
+        <tr>
+            <td>Docker</td>
+            <td>${dockerVer}</td>
+        </tr>
+        <tr>
+            <td>ansible</td>
+            <td>${ansibleVer}</td>
+        </tr>
+        <tr>
+            <td>java</td>
+            <td>${javaVer}</td>
+        </tr>
+        <tr>
+            <td>nginx</td>
+            <td>${nginxVer}</td>
+        </tr>
+    </table>
+</body>
+
+EOF

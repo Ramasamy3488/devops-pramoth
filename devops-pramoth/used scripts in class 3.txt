@@ -1,0 +1,98 @@
+-e checks if the file exists.
+-f checks if the file is a regular file.
+-d checks if the file is a directory.
+-r checks if the file is readable.
+-w checks if the file is writable.
+-x checks if the file is executable.
+-s checks if the file is not empty. 
+
+
+#! /bin/bash
+
+# Prompt the user for a file name
+read -p "Enter the file name to check: " filename
+
+# Check if the file exists
+if [ -e "$filename" ]; then
+  echo "The file $filename exists."
+else
+  echo "The file $filename does not exist."
+fi
+-------------------------------------------------------------------------------------------------------
+
+#! /bin/bash
+
+# Prompt the user for a file name
+read -p "Enter the file name to check: " filename
+
+# Check if it is a regular file
+if [ -f "$filename" ]; then
+  echo "$filename is a regular file."
+else
+  echo "$filename is not a regular file."
+fi
+----------------------------------------------------------------------------------- 
+#! /bin/bash
+
+# Prompt the user for a directory name
+read -p "Enter the directory name to check: " dirname
+
+# Check if it is a directory
+if [ -d "$dirname" ]; then
+  echo "$dirname is a directory."
+else
+  echo "$dirname is not a directory."
+fi
+-----------------------------------------------------------------------------
+#! /bin/bash
+
+# Prompt the user for a file name
+read -p "Enter the file name to check: " filename
+
+# Check if the file is readable
+if [ -r "$filename" ]; then
+  echo "$filename is readable."
+else
+  echo "$filename is not readable."
+fi
+----------------------------------------------------------------------------------------------
+
+#! /bin/bash
+
+# Prompt the user for a file name
+read -p "Enter the file name to check: " filename
+
+# Check if the file is writable
+if [ -w "$filename" ]; then
+  echo "$filename is writable."
+else
+  echo "$filename is not writable."
+fi
+------------------------------------------------------------ 
+
+#! /bin/bash
+
+# Prompt the user for a file name
+read -p "Enter the file name to check: " filename
+
+# Check if the file is executable
+if [ -x "$filename" ]; then
+  echo "$filename is executable."
+else
+  echo "$filename is not executable."
+fi
+----------------------------------------------------------------------------------
+#! /bin/bash
+
+# Prompt the user for a file name
+read -p "Enter the file name to check: " filename
+
+# Check if the file is empty
+if [ -s "$filename" ]; then
+  echo "$filename is not empty."
+else
+  echo "$filename is empty or does not exist."
+fi
+---------------------------------------------------------------------
+
+

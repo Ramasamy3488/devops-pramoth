@@ -1,0 +1,20 @@
+sudo yum install mailx -y
+
+
+sudo vi /etc/mail.rc
+
+
+set smtp-use-starttls
+set ssl-verify=ignore
+set smtp=smtp://smtp.gmail.com:587
+set smtp-auth=login
+set smtp-auth-user=ravipramoth@gmail.com
+set smtp-auth-password=<password>
+set from="ravipramoth@gmail.com"
+set nss-config-dir=/etc/pki/nssdb/
+
+
+echo "This is a test email from Amazon Linux" | mailx -s "Test Email" ravipramoth@gmail.com
+
+
+

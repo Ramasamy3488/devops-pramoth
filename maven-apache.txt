@@ -1,0 +1,79 @@
+Apache Maven
+
+amazon linux server
+
+sudo -i
+yum install java-1.8* -y
+java -version
+/usr/lib/jvm/java-1.8.0-amazon-corretto.x86_64
+pwd
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-amazon-corretto.x86_64
+PATH= $PATH:$JAVA_HOME/bin
+
+cd /opt
+https://maven.apache.org/download.cgi
+wget <apache-maven download binary>
+wget https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz
+
+tar -xvzf <tarfilename>
+rm <tarfile>
+
+set path
+
+cd <folder>
+
+cd bin
+
+pwd
+
+export M2_HOME=/opt/apache-maven-3.9.9
+PATH=$PATH:$M2_HOME/bin
+
+vi .bash_profile
+
+after fi
+
+PATH=$PATH
+
+cd 
+
+yum install git -y
+
+git clone https://github.com/spring-projects/spring-petclinic.git
+
+cd <folder>
+
+mvn clean install
+
+download tomcat 9 download
+download binary tar file
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.95/bin/apache-tomcat-9.0.95.tar.gz
+tar -xvzf apache-tomcat-9.0.95.tar.gz
+ls
+rm apache-tomcat-9.0.95.tar.gz
+mv apache-tomcat-9.0.95 tomcat
+cp -R tomcat /opt
+cp -R tomcat /opt
+cd /opt
+ls
+cd tomcat
+ls
+cd bin
+ls
+./catalina.sh version
+ls
+./startup.sh
+ln -s /opt/tomcat/bin/startup.sh /usr/bin/tomcatup
+ln -s /opt/tomcat/bin/shutdown.sh /usr/bin/tomcatdown
+cd 
+tomcatup
+tomcatdown
+tomcatup
+
+cd /opt/tomcat/webapps
+
+wget https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war
+
+
+
+ 

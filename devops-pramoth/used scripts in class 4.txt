@@ -1,0 +1,134 @@
+#! /bin/bash
+
+for item in item1 item2 item3
+do
+  echo "Current item: $item"
+done
+
+
+
+-----------------------------------------------------------------------------------------
+
+------------------------------------------------------
+#! /bin/bash
+
+MARK=180
+
+if [ $MARK -eq 180 ]; then
+  echo "good mark"
+elif [ $MARK -gt 180 ]; then
+  echo "excellent mark"
+elif [$MARK -lt 150]; then
+echo "you mark is avg"
+else
+  echo "bad mark"
+fi
+
+&& || 
+
+if mark -eq 180 && mark -gt 180 
+Then 
+cmd 
+
+if mark -gt 180 || mark -eq 180 
+Then 
+cmd 
+
+----------------------
+--------------------------------------- 
+
+#! /bin/bash
+
+MARK=180
+
+if [ $MARK -eq 180 ]; then
+  echo "good mark"
+else
+  echo "bad mark"
+
+--------------------------------------------
+
+
+mkdir new_directory && echo "Directory created successfully"
+ 
+mkdir existing_directory || echo "Failed to create directory"
+--------------------------------------------------------------------------
+
+#! /bin/bash
+
+a=10
+b=20
+
+if [ $a -lt 15 ] && [ $b -gt 15 ]; then
+  echo "Both conditions are true"
+else
+  echo "One or both conditions are false"
+fi
+
+------------------------------------------------------- 
+
+#! /bin/bash
+
+a=10
+b=5
+
+if [ $a -lt 15 ] || [ $b -gt 15 ]; then
+  echo "At least one condition is true"
+else
+  echo "Both conditions are false"
+fi
+----------------------------------------------------------------------- 
+#! /bin/bash
+
+# Taking input from the user
+read -p "Enter value for a: " a
+read -p "Enter value for b: " b
+
+# Using && (AND) condition
+if [ $a -lt 15 ] && [ $b -gt 15 ]; then
+  echo "Both conditions are true"
+else
+  echo "One or both conditions are false"
+fi
+-------------------------------------------------------------------- 
+
+
+#! /bin/bash
+
+# Ping google.com with 1 packet and check if it responds
+ping -c 1 google.com > /root/output  2>&1
+
+# Check the exit status of the ping command
+if [ $? -eq 0 ]; then
+  echo $?
+  echo "Google.com is reachable"
+ 
+else
+  echo $? 
+  echo "Google.com is not reachable"
+fi
+-------------------------------------------------------------------------
+
+#! /bin/bash
+
+# Prompt the user to enter a website URL
+read -p "Enter the website to check (e.g., google.com): " website
+
+# Ping the entered website with 1 packet and check if it responds
+ping -c 1 $website > /dev/null 2>&1
+
+# Check the exit status of the ping command
+if [ $? -eq 0 ]; then
+  echo "$website is reachable"
+else
+  echo "$website is not reachable"
+fi
+------------------------------------------------------------- 
+
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+write a Script which will help you get important details of your machine like and schedule job in cron and email alerts 
+
+
+
+IP Details
+
+Uptime
+
+Last login details
+
+Disk Space Utilization
+
+Free Memory Stats
+
+
+
