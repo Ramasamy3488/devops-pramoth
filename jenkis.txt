@@ -13,13 +13,12 @@ CD - delivery and deployment
      open soure , free
      cloudbees --- enterprices edition
 
-
 job
  freestyle
  pipeline
   declarative
   scripted
- multi branch pipeline
+ multibranch pipeline
  multiconfig pipeline
  folder
 plugin
@@ -35,13 +34,24 @@ enable port --- 8080
 
 ***********************************************************
 
+create Amazon Linux 2 server
+
 sudo yum update -y
+
+sudo yum install java -y
+
 sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
 sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
 sudo yum upgrade
+
 sudo yum install jenkins -y
+
 sudo systemctl enable jenkins
+
 sudo systemctl start jenkins
+
 sudo systemctl status jenkins
 
 ************************************************************

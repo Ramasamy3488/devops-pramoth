@@ -10,6 +10,11 @@ pwd
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-amazon-corretto.x86_64
 PATH= $PATH:$JAVA_HOME/bin
 
+
+***********************************************************************************************
+
+install maven                      --- default path /opt
+
 cd /opt
 https://maven.apache.org/download.cgi
 wget <apache-maven download binary>
@@ -44,6 +49,10 @@ git clone https://github.com/spring-projects/spring-petclinic.git
 cd <folder>
 
 mvn clean install
+
+*************************************************************************************************************
+
+Install Tomcat server            --- default path /opt
 
 download tomcat 9 download
 download binary tar file

@@ -1,0 +1,972 @@
+
+In Linux, the file system hierarchy is structured like a tree. The top-most directory is the root directory (`/`), and everything falls under it. Here's an overview of the main directories in Linux:
+
+# 1. **Root Directory (`/`)**
+ - The starting point of the Linux file system hierarchy.
+ - Every other directory and file is contained under this.
+# 2. **/bin** (Binaries)
+ - Contains essential user command binaries (executables) such as `ls`, `cp`, `mv`, and `cat`.
+ - These binaries are needed for the system to operate in single-user mode.
+# 3. **/boot**
+ - Holds files related to the system's bootloader and the Linux kernel.
+ - Contains files like `vmlinuz` (the compressed Linux kernel) and `initrd.img` (initial RAM disk).
+# 4. **/dev** (Devices)
+ - Contains special files that represent hardware devices such as hard drives, terminals, USBs, etc.
+ - Example: `/dev/sda` (a hard drive), `/dev/tty1` (terminal), etc.
+# 5. **/etc** (Configuration files)
+ - Contains system-wide configuration files and shell scripts that are used by the system at boot and runtime.
+ - Example: `/etc/passwd` (user information), `/etc/fstab` (filesystem mount points).
+# 6. **/home**
+ - Each user on the system has a directory inside `/home` for their personal files and configurations.
+ - Example: `/home/alice`, `/home/bob`.
+# 7. **/lib** (Libraries)
+ - Contains essential shared libraries and kernel modules.
+ - Files in `/lib` are needed for binaries in `/bin` and `/sbin` to work properly.
+# 8. **/media**
+ - Temporary mount points for removable devices such as CDs, USB drives, etc.
+ - Example: `/media/usb`.
+# 9. **/mnt** (Mount)
+ - Traditionally used for temporarily mounting filesystems. It can be used for mounting different kinds of storage devices manually.
+ - Example: `/mnt/data`.
+# 10. **/opt** (Optional packages)
+ - Used for installing third-party software.
+ - Example: Software like `Google Chrome` or custom packages may reside here.
+# 11. **/proc** (Process information)
+ - A virtual filesystem providing information about running processes. For example, `/proc/123` would contain information about process ID 123.
+ - It also contains system information, like `/proc/cpuinfo` (CPU details).
+# 12. **/root**
+ - The home directory for the root user (superuser).
+# 13. **/run**
+ - A temporary filesystem that stores system information about the running system since the last boot.
+# 14. **/sbin** (System Binaries)
+ - Similar to `/bin`, but contains binaries essential for system administration, such as `shutdown`, `reboot`, `fdisk`.
+ - Typically used by the system administrator (root).
+# 15. **/srv**
+ - Contains data for services provided by the system, such as web servers, FTP servers, etc.
+# 16. **/sys**
+ - Another virtual filesystem that exposes information about system devices and buses, used by the kernel.
+# 17. **/tmp** (Temporary files)
+ - Used for temporary files that are created by system processes and user applications.
+ - Files in `/tmp` are typically deleted upon reboot.
+# 18. **/usr** (User programs)
+ - Contains user applications and utilities. It has its own `bin`, `sbin`, and `lib` directories:
+   - `/usr/bin`: Non-essential user binaries.
+   - `/usr/sbin`: Non-essential system binaries.
+   - `/usr/lib`: Libraries for binaries in `/usr/bin` and `/usr/sbin`.
+ - Example: Text editors like `nano` or `vim`.
+# 19. **/var** (Variable files)
+ - Contains files that are expected to grow in size, such as log files, databases, caches, and email queues.
+ - Example: `/var/log` (log files), `/var/spool` (printer queues).
+This hierarchy allows Linux to maintain a logical structure, ensuring that files are organized and accessed efficiently.
+
+******************************************************************************
+
+data
+cal
+uptime
+whoami
+who
+pwd
+
+*********************************************************
+
+View Files
+ls  -l, a, r, s, t
+cat - cat filename, cat -n filename / cat > filename, cat >> filename
+less - less filename.
+more - more filename
+head - head filename, head -5 filename  / by default -10 lines
+tail - taile filename, tail -6 filename / by default -10 lines
+page 
+
+*************************************************************
+
+create, delete and rename files and directories
+
+touch filename, touch file{1..10} - 0 bit file
+cat > filename - overwrite the file
+cat >> filename - append the file
+nano
+vi
+mkdir dirname, mkdir dir1 dir2 dir3, mkdir -p fold1/fold2/fold3/fold4, mkdir dir{1..10}
+rm filename
+rmdir dirname
+rm -rf dirname
+rm -rf *
+mv oldname newname
+
+****************************************************************
+
+cd ---change directory
+
+ cd <foldername>
+ cd ..
+ cd folder1/folder2/folder3
+ cd ../..
+ cd ../../../..
+ cd -
+ cd
+
+ **************************************************
+
+========================================================
+
+
+#pwd--> present working directory
+#uname--> unix name (-a will give all info)
+#cal-->calendar (cal 03 2020 will give march 2020 calendar)
+#passwd--> to change password
+#date--> Gives date
+#ls--> gives list, ls -l(listing) (-a hidden files) (-r reverse) (-t stort by time)
+#cd --> change directory (cd /home/) (cd will take to home directory)
+#whatis--> one line description of command
+#man--> manual pages
+#wild card--> * all characters and ? only one character
+# control -d or exit to exit
+#touch--> to create empty files
+
+==================================================================
+
+
+history--> To find the history of all the commands
+who--> list of all users logged in
+whoami--> which user am i logged in as
+id--> gives all logged information including group information
+
+======================================
+
+
+abolute vs releative path (absolute path is full path always begins with / and releative path is relative to current path)
+cat file.txt
+hello world
+cat /home/nadz/aimmore_unix_batch/file.txt
+hello world
+
+========================================
+
+
+working with directories
+#mkdir dir_name--> to create a directory in unix(mkdir dir1 dir2 dir3 to create multiple directory in unix)
+#rmdir dir_name--> to remove directory in unix (directory should not be empty)
+#rm -r dir_name-->to remove non empty directory
+
+==================================================
+
+
+use of special characters in unix
+Notation of . and ..
+.--> current directory
+..--> previous directory 
+cd ../..--> two steps back
+ls . and ls .. and ls ../..
+cd - (not very important)
+cd ~(~ is a short form for home directory)
+
+==============================================
+
+
+creating files using touch and cat
+touch file.txt (create zero byte file)
+cat > file.txt type something and exit using control d 
+cat >> file.txt type something and exit using control d (will append to existing file)
+>--> overwrite
+>>--> append
+
+=========================== stopped here====================================
+
+
+more --> supports pagination for big files(shows %,enter to go to next line,space to go to next page,q to quit)
+less --> supports pagination for big files backward(enter to go to next line,
+space to go to next page,
+q to quit,y-->line by line, b-->page by page)
+
+==============================================
+
+
+Other file viewing tools
+tac--> prints in reverse(opposite of cat) 
+rev--> Print the content is reverse string
+head--> will print only the top 10 lines
+head -3--> will print only top 3 lines
+tail -->will print only the last 10 lines (reverse)
+tail --> will print only last 3 lines
+
+===============================================
+
+
+Removing files we created
+rm file_name--> remove files
+rm -i file_name--> Interactive mode
+rm -r file_name --> removes recurively
+rm -rf file_name -->remove recurively and forcibly 
+using wild cards to remove files
+rm *.txt--> remove only files ending with .txt
+rm f*--> Remove files starting with f
+rm ?1.txt etc
+
+======================================
+
+
+cp (copy command)
+cp file_name(s) destination (to copy files)
+----> common things:
+	--->while copying the file can be copied with a different or same name
+	--->if destination_path is directory then file(s) will be copied inside directory
+cp test_file.txt test_file_bkp.txt
+cp test_file.txt /tmp
+cp *.* /tmp
+question: I want to copy test_file.txt with a differnt name in /tmp folder
+cp -r (to copy directory along with files)
+cp -r perm /tmp/ 
+=== while copying the timestamp changes -p helps to perseve the same
+cp -rp perm /tmp/ (preserve=mode,ownership,timestamps)
+mv(move aka cut or rename)
+mv file_name(s) destination (to move files)
+mv test_file.txt /tmp/ (moves file to /tmp)
+mv aimmore_unix_batch_test /tmp/ (moving directory to tmp)
+mv can be used to rename files
+mv tr.txt tr1.txt (renaming files)
+mv files_bkp files_bkp_1(renaming directories)
+remember: 
+when source is file and target is directory the file will be moved into it
+when source  and target is directory the directory will be renamed
+
+=====================================
+
+
+word count 
+wc --> will give word count of lines, words and charaacters
+wc -l--> will gives lines
+wc -w--> will give words
+wc -c --> will give characters 
+
+=======================
+
+
+date +%d
+date +%m (small is month)
+date +%Y (small Y and y)
+date +%H
+date +%M(caps is minute)
+date +%S
+nadz@nadz-Inspiron-N5010:~/aimmore_unix_batch$ date +%d%m%Y%H%M%S
+02092021142256
+date +%d-%m-%Y_%H:%M:%S
+31-08-2021_18:33:50
+
+============================
+
+
+sort -r file_name(reverse alphabetical order)
+sort -n filename(to handle numbers)
+sort -nr filename(to handle numbers and reverse number sort)
+sort -u filename(to sort and show only unique lines)
+sort -k filename(file contains tabular data )
+sort -k 2n filename(sort based on 2nd column file contains tabular data numerical sort )
+sort -k 2nr filename(sort based on 2nd column file contains tabular data numerical sort )
+
+======================================================================
+
+
+commands which needs file or directory name (touch,mkdir,rmdir,rm,ls)
+commands which are not accessing file content and file name or dir name(whoami,id,who,history,date,cal,uname)
+missed-->
+clear command 
+mkdir -p
+creating multiple 
+
+=================================
+
+
+Grep--Global Regular Expression 
+print lines matching a pattern in a single file or multiple files
+grep -option 'pattern' file_name(s)
+--i--> case insenstive
+--w--> whole word
+--n--> matching lines along with line number
+--c-->print count of matches found
+--l--> file name of the match found (grep -l 'unix' *.*)
+--L--> file name of the unmatch found (grep -L 'unix' *.*)
+--v-->except pattern matced lines
+--o--> match word alone
+combine and play with options
+^unix--> line begins with unix
+unix$--> line ends with unix
+^$--> to find empty lines in files
+
+====================================================================================
+
+
+note: explain about f in rm -rf
+use extended grep (egrep) for multiple patterns note only one pattern can be used in grep 
+egrep
+--used to find patten using all regular exepressions
+grep -option 'pattern' file_name(s)
+egrep
+egrep -[options] 'pattern1|pattern2|patten3' file_name
+egrep supports multiple patterns and most importantly regular expression
+egrep -i 'solaris|fedora' grep.txt --> match solaris or fedora
+[A-Z]-->alphabet A to Z(caps)
+[a-z]-->alphabet A to Z(Small)
+[0-9]--> Numbers 0 to 9
+[alpha]
+egrep '[6-9][0-9]{9}'-->First character is number followed by 9 numbers
+egrep 'lonrs[0-9]{5}'-->l 0 n r s followed by 5 numbers 
+egrep -i 'lonrs[0-9]{5}' 
+grep -o '[l][o][n][r][s][0-9][0-9][0-9][0-9][0-9]' grep1.txt
+egrep '[l][o][n[r][s][0-9]{5}' grep1.txt
+egrep '[a-z][a-z][a-z][a-z][a-z][0-9]{5}' grep1.txt
+======
+fgrep similar to egrep but the file pattern is locacted in file
+fgrep -f pattern.txt grep.txt--> the pattern is on the file 
+
+cat pattern.txt 
+Fedora
+Solaris
+
+============================ Grep is very important interview point of view====================
+
+
+Assignment in grep command?
+emp.txt
+eno,ename,esal,edep,egen
+100,Raja,1000,Admin,Male
+200,Ravi,2000,IT,Male
+300,Steven,3000,Admin,male
+400,Lex,4000,Admin,Female
+500,Mani,5000,IT,Male
+trailerline--> 8 13-01-2019
+1.Display all employees who belongs to admin department?
+2.Display all employees who belongs to admin and IT department?
+3.Dispaly all male employees in admin and IT department? (egrep -w 'Male|Admin|IT' emp.txt |grep -iv 'female')
+Introduce the concept of piping | (passing the output of one command to other command)
+egrep -w 'Male|Admin|IT' emp.txt |grep -iv 'female'
+question using pipe
+find the number of files or folder in a particular directory
+
+=================================
+
+
+uniq--> deduplicates and print only uniq lines(distinct)
+the file should be sorted else it won't as expected
+uniq sort.txt--> won't work because data isn't sorted
+sort sort.txt| uniq--> will sort as expected
+--i-->case insenstive
+--c--> diplay occurrence of each line (group by)
+--u-->shows only  those records which don't have duplicates
+--d-->shows only  those records which don't have duplicates
+
+=======================================================
+
+
+swiTch to different user
+sudo -i --> to switch to root
+whomai--> who am i logged as
+su - username--> to switch to particular user
+whomai--> who am i logged as
+exit--> exit from logged in user
+
+==============================================
+
+
+du and df commands
+du--> --used to  file space in currnt dir and sub dir also(disk usage)
+-h--> human readable format(can be used in ls as well)
+-s-->summarize or summation
+df -->disk usage for entire file system(disk free)
+df -h
+
+=================================================================
+
+
+
+==========================================================
+
+
+
+===============================================
+
+
+simple utilties to find difference between two files
+cmp (compare two files)
+cmp:
+If content is same then we wont get any output
+if the content is different, then it provides information about only first diff.
+Bytes number and line number will be provided
+syntax:
+cmp cmp1.txt cmp2.txt
+diff:
+If content is same then we wont get any output
+If the content is different then it will show all difference.
+syntax:
+diff cmp1.txt cmp2.txt
+try cmp and diff with 3 files
+paste (merge lines of files)
+-s---sequence
+-d---delimiter 
+paste file1.txt file2.txt--mergeing lines in parallel manner.
+paste -s file1.txt file2.txt--merge in sequence way
+paste -s -d ','  cmp1.txt cmp2.txt (using delimeter)
+paste -d ','  cmp1.txt cmp2.txt (using delimeter)
+split
+  It will split the lines and automatically create one new line that file name starts from Xaa
+l----lines
+split -l2 file1.txt---Splitting file on number of lines.
+what is delimeter:
+delimter is something that seprates columns 
+for a csv files (comma seperated values) , is a delimter
+commonly delimter:
+,(comma) 
+|(pipe)
+space
+tab
+nadeem	chennai --> i am tab seperated 
+nadeem chennai --> i am space  seperated 
+charactertsic of file
+a file will have a header
+a file will have data (seprated by delimter)
+a file can have a trailer (most files may not have)
+
+=============================================================
+
+
+nadz@nadz-Inspiron-N5010:~/aimmore_unix_batch$ ls -lrt sort.txt
+-rw-rw-r-- 1 nadz nadz 55 Aug 31 17:27 sort.txt
+
+==============================
+
+
+drwxrwxr-x 3 nadz nadz 4096 Sep  1 14:48 files_bkp_1
+change file/directory permissions using 
+chmod (stands for change mode)
+what is file permission
+//how we can read permissions of file
+-rw-rw-r-- 1 nadz nadz 0 Sep  3 18:53 permission.txt
+-rw-  rw-   r--
+u     g     o
+drwxrwxr-x 2 nadz nadz 4096 Sep  3 18:55 perm
+rwx   rwx   r-x
+u     g     o
+user(U)-->The access privileges of the owner of the file
+group(g)-->The access privileges of any members of the file's group
+others(o)-->The access privileges of everyone else
+Permission  For Files 		For Directories
+r	    read      		view contents (e.g. ls)
+w	    modify (write)	create or delete files
+x	    execute		access (e.g. cd)
+There are two distinct methods of using chmod(change mode)
+syntax :chmod permissions filename(s)
+Symbolic mode
+Persons    Action     Permissions
+u	    +(add)	R
+g	    -(remove)   W
+0			x
+examples:
+chmod o+wx permission.txt
+chmod o-wx permission.txt
+numeric mode: 
+permissions are specified by using three numbers
+r=4, w=2 and x=1
+chmod 440 permission.txt
+chmod 777 permission.txt
+chmod 000 permission.txt
+i need full permissin on my file
+anyone in my group can read my files but cannot wrire or exec
+others i don't want to give any permmsion
+chmod 740 permission.txt
+i need r/w permissin on my file
+anyone in my group can read/w my files but cannot wrire or exec
+others want to give r permmsion
+chmod 664 permission.txt
+chmod 640 file1 (rw-r-----)-->owner r and w permission, the group r permission, and no permissions to anyone else
+chmod 070 file1	(---rwx---)-->Give full permissions to the group only
+chown and chgrp (high level idea)
+
+===========================================
+
+
+standard o/p, i/p and error
+standard output --> the standard output on unix is by default send to screen
+the standard output can be sent to either a file or another program.
+to send standard output to file we can use > ( >> can be used to append)
+	for eg: create a file which contains list of all files and directories in current folder (ls -l > standout.txt)
+to send standard output to another program we can use | ( >> can be used to append)
+	for eg: find count of all files and directories in current folder (ls -l | wc -l)
+
+================================================
+
+
+standard input-->the standard output on unix is by default recieved from keyboard.
+the standard input can be recieved file or another program.
+to recive standard input from a file we can use <
+		for eg: cat < file_name (by simply doing cat file_name  shell understand that standard input is not keyboard but file )
+to recive standard input from a another program (ls -l | wc -l). wc receives input from another program called ls
+
+============================================
+
+
+standard error--> standard error by default is sento to screen.
+the standard output can be sent to either a file.
+to send standard output to file we can use 2>
+for eg: list a files named aimore.txt and aimore1.txt if the file is found sent the o/p to standout.txt send errors to standout.txt 
+ls -lrt aimore.txt aimore1.txt > standout.txt 2>standout.txt
+for eg: list a files named aimore.txt and aimore1.txt  send o/p and errors to std.txt 
+ls -lrt aimore.txt aimore1.txt > std.txt 2>&1 (2>&1 simply says redirect standard error to standard output)
+/dev/null-->special file, that discards everything written into it (like a thrash)
+for eg: list a files named aimore.txt and aimore1.txt if the file is found sent the o/p to standout.txt and hide/supress errors
+ls -lrt aimore.txt aimore1.txt > std.txt 2>/dev/null
+Note:
+filter is a UNIX command-line utility that has the following properties:
+It takes input from standard input(keyboard) or file or from previous program 
+It performs some processing on the data it reads
+It produces output based upon that input
+Tell me filters that you know of ?
+grep,sort,uniq,cat,tac,rev,
+example wc is a filter.
+what are other filters we know (wc,cat,tac,rev,head,tail,sort,uniq,grep,awk,sed,less,more)
+when standard out is send to another program it should be a filter to get desired results
+ls -l | wc -l (list the files send to a filter program)
+ls -l | cd / (after listing files cd to root directory, will not work)
+>>> | 2>
+
+======================================================================
+
+
+How to combine multiple independent command into single command?
+; or &&
+create directory d1--> mkdir d1 
+create 3 empty files a.txt b.txt c.txt---> touch d1/a.txt touch d1/b.txt touch d1/c.txt
+in a.txt have to write todays date  --> date > a.txt 
+in b.txt have to write this month --> cal 09 > b.txt
+mkdir d1;touch d1/a.txt touch d1/b.txt touch d1/c.txt;date > a.txt;cal 09 > b.txt
+mkdir d1;touch d1/a.txt d1/b.txt d1/c.txt;date > d1/a.txt;cal > d1/b.txt
+mkdir d1&&touch d1/a.txt d1/b.txt d1/c.txt&&date > d1/a.txt&&cal > d1/b.txt
+;
+if there is any error in middle of the command then rest of command will be exec
+&&
+if there is any error in middle of the command then rest of commands wont be exec
+-------------------------
+a=10
+b=20
+a is grrater then b
+else
+b is greater then a
+------------------------------------
+bala----   ---
+MG--murugan--
+e1.txt
+eno name sal
+101 raja 2000
+102 ram 3000
+
+================ links======================
+
+
+it is possible for a file to have more than one name, in more than one directory
+links are created using ln command
+--link count can be found using ls -l
+ls -l sort1.txt
+-rw-rw-r-- 1 nadz nadz 22 Aug 31 17:27 sort1.txt
+when links are created using ln command the link count increases 
+in links there is no concept of orginal or dupliacates each link is conidered orginal
+when one link is modified all the other links are updated.
+the files is considered to be deleted when all links are removed
+Links cannot be created for directories
+nadz@nadz-Inspiron-N5010:~/aimmore_unix_batch$ ln perm_bkp perm_bkp_1
+ln: â˜perm_bkpâ™: hard link not allowed for directory
+---- the above concept is called hard link(clone)
+symbolic link (similar to short cut we can create in windows)
+symbolic links are created using ln -s
+lrwxrwxrwx  1 nadz nadz        9 Sep  4 19:15 sort1_shortcut.txt -> sort1.txt
+symbolic links will be of no use when the orginal file is removed 
+
+=======================================
+
+
+find <start_from><file or directory><pattern>
+find-->find files/file in unix(search of file using file name/size/time/permission etc) 
+--used to search files or dir in current located dir as well as sub-dir also
+difference between ls(just listing of files) vs find(can search accross the entire unix file system)
+find <location to start search> -type -option
+-type (use to specfify if you want to search file or directory)
+---f--> to find files
+---d--> to find directories
+---l--> to find shortcuts
+options:
+--name--> names of the file(try wildcards)
+--iname--> names of the file case-insenstive(try wildcards)
+--empty--> find empty files or directories
+--size--> find based on size of file
+--mmin--> find based on modified time(in minutes)
+-mtime--> find based on modified time(in days)
+--exec--> after find is complete execute this program
+--prem--> find based on permission
+find . -type d -name d*
+find . -type f -name 'f*'
+find . -type f -iname 'f*'
+find . -type f -empty
+find . -type f -size 0
+find . -type f -size 2c
+find . -type f -size +1k
+find . -type f -size -1k
+find . -type f -size -10c
+find . -type f -perm 777(will be explained in details while learning permissions)
+find . -type f -name '*.pdf' -exec rm -rf {} \;
+find -type f -mmin 5(find files modified exactly 5 mins back) exactly at 
+find -type f -mmin -5(find files modified exactly after 5 mins)
+find -type f -mmin +5(find files modified exactly after 5 mins)
+size chart
+========
+'c'    for bytes
+'k'    for Kilobytes (units of 1024 bytes)
+'M'    for Megabytes (units of 1048576 bytes)
+'G'    for Gigabytes (units of 1073741824 bytes)
+
+=========================================
+
+
+locate Command
+---------------
+We can use locate command to find files and dir in current dir and sub dir also.
+Internally locate command will search in the database file which is located in /var/lib/mlocate/mlocate.db
+Advantages:
+It will sarch in the database file instead of entire file system so performance will be improved.
+Disadvantage:
+Database file will be updated only once per day so we cannot generate updated file.
+We have to update to seach exact file or dir after updating database file.
+options for locate command
+-i  --> case insensitive
+--limit or -l  --> we can genedate limited number of files
+How to update mlocate.db file?
+updatedb
+By Using locate -S we can see database file
+
+===================
+
+
+how to run command as root user (without loggin in root user)
+sudo find / -type f -name 'F1.txt'
+
+==============================================
+
+
+sed (stream editor)
+The sed command, short for stream editor, performs editing operations on text coming from standard input or a file
+print
+repalce--word (substitute)
+delete--line
+append--below line
+Print:
+sed -n 'p' grep.txt--> To Print all lines
+sed -n '1p' grep.txt--> To Print 1st line
+sed -n '1!p' grep.txt--> To Print all lines other than 1st line
+sed -n '1,5p' grep.txt--> To Print 1st to 5th line
+sed -n '1p;5p' grep.txt--> To Print 1st and 5th line
+sed -n '$p' grep.txt--> To Print last lines
+search using sed 
+sed -n /'unix'/p grep.txt--> To Print all lines matching unix
+sed -n /'unix'/Ip grep.txt--> To Print all lines matching unix(case insenstive)
+sed -n /'\bunix\b'/p grep.txt--> To Print all lines matching unix (whole word)
+sed -n /'^unix'/p grep.txt--> To Print all lines starting unix
+sed -n /'unix$'/p grep.txt-->To Print all lines ending unix
+sed -n /'^$'/p grep.txt-->To Print all empty lines
+subsitute using sed 
+sed s/unix/windows/ grep.txt--> replaces 1st occurance of unix with windows in a line
+sed s/unix/windows/Ig grep.txt--> replaces all occurance of unix with windows(global)
+sed s/unix/windows/I2 grep.txt-->replaces 2nd occurancebig1.txt of unix with windows in a line
+sed 1s/unix/windows/g grep.txt--> replaces all occurance of unix with windows on 1st line alone
+sed 1,5s/unix/windows/g grep.txt--> replaces all occurance of unix with windows on 1st to 5t line alone
+delete using sed
+sed 'd' grep.txt--> To Print all lines
+sed '1d' grep.txt--> To delete 1st line
+sed '1!d' grep.txt--> To delete all lines other than 1st line
+sed  '1,5d' grep.txt-->To delete 1st to 5th line
+sed '1d;5d' grep.txt-->To delete 1st and  5th line
+sed '$d' grep.txt--> To delete last lines
+sed /'unix'/Id grep.txt-->To delete all lines matching unix
+sed /'^unix'/Id grep.txt-->To delete all lines starting unix
+sed /'unix$'/Id grep.txt-->To delete all lines ending unix
+sed /'^$'/d grep.txt-->To delete all empty lines
+append:
+sed 'a hi' grep.txt-->to append hi at the end of all lines
+sed '1a hi' grep.txt-->to append hi at the end of first lines
+sed '/pattern/ a line have ti append' file_name--append patten matched line
+sed '/^pattern/ a line have ti append' file_name--append pattern at starting of line
+sed '/pattern$/ a line have ti append' file_name--append pattern at end of the line
+sed '/^$/ a line have ti append' file_name--append empty line in a file
+/// to make the changes permanently to the file 
+sed -i s/unix/windows/Ig grep.txt
+/// to make the changes permanently to the file and a copy of old/actual file is retained
+sed -i.bkp s/unix/windows/Ig grep.txt
+tr command
+----------
+tr menas translate
+This command translate char by char
+tr 'aeiou' 'AEIOU' < x.txt
+or
+cat x.txt | tr 'aeiou' 'AEIOU'
+it will rplace lower case vowels with upper case vowels in x.txt file
+tr '[a-z]' '[A-Z]' < x.txt
+It will replace  lower case alphabet to upper case alphabet
+tr '[A-Za-z]' [a-zA-Z] < x.txt
+Every lower case char will be replaced with upper case big1.txtchar and every upper case char will be replaced with lower case char
+tr 'aeiou' '*' < x.txt
+To relace every lower case vowels with spl char *
+tr ',' '\t' < emp.csv
+To replace , symbol with tab
+tr -d 'aeiou' < x.txt
+-d delete char
+It will delete all lower case voewls
+
+================================
+
+
+Compresstion and Uncompression of files
+(tar,gzip,gunzip,bzip2,bunzip2)
+It is a very comman requirement to pack and compress a group of files.
+1.Impoves memory utilization
+2.Transpotation will become very easy
+3.It readuces downloding time
+Zip process involves 2 activities:
+1. Creation of Archive file
+2. Apply compression algortham on that archive file.
+1.Creation of Archive file
+we can group multiple files or direcories into a single file by using tar command.
+While archive group of files, file will not compress.
+tar-->tape archive
+a.To create archive file
+tar -cvf demo.tar file1.txt file2.txt file3.txt
+tar -cvf demo.tar *
+c -- create
+t -- view table of content
+x -- Extract
+v -- Verbose(View files archived)
+f -- file
+b.To display contents of tar file
+tar -tvf demo.tar
+c.To extract content of tar file:
+tar -xvf demo.tar
+2.Apply compression algorthms on that archive file
+There are multiple ways to compress and decompress algorithms.
+gzip-->It is very fast but less compression power
+bzip2-->It is a bit slow but more compression power
+Compress and Decompress algorithms using gzip:
+1.To compress tar file
+gzip demo.tar
+demo.tar.gz--> This file got created
+2.To uncompress gz file:
+gzip -d demo.tar.gz
+or
+gunzip demo.tar.gz
+Compress and Decompress algorithms using bzip2:
+1.To compress tar file
+bzip2 demo.tar
+demo.tar.gz--> This file got created
+2.To uncompress gz file:
+bunzip2 demo.tar.gz
+Sender
+tar file(archive file)
+compress uaing gzip or bzip
+Receiver
+uncompress(gunzip or bunzip2)
+extract tar file
+Note:
+When compare to gzip bzip2 is most powerful compressor.
+1.By usign gzip
+How to create tar file and compress in a single command:
+To create tar and then compress
+tar -cvzf demo.tar file1.txt file2.txt file3.txt
+How to uncompress and extract tar file
+tar -xvzf demo.tar
+2.By using bzip2
+How to create tar file and compress in a single command:
+To create tar and then compress
+tar -cvjf demo.tar file1.txt file2.txt file3.txt
+How to uncompress and extract tar file
+tar -xvjf demo.tar
+How to view content in zipped file?
+zcat==============
+process
+fg
+bg
+ps
+--process status
+ps	--fg process in current terminal
+ps -ef	--fg and bg process in all user but nor cpu and mem(PID PPID UID)
+e-everythig 
+f--full listing
+how do you identify process id with process name?
+ps -ef | grep 'process_name'
+pf -ef
+--used to find process running in machine
+--used to find process id
+kill
+--used to give signal to process id
+kill -2 pid---normal termination
+kill -9 pid--force
+How to find background process?
+jobs
+I have to start bg process?
+command&
+how to connect DB in unix?
+sqlplus user_name/password@sid
+How to import output of a query into a file?
+sqlplus hr/hr@XE
+spool file_name
+select * from emplyees;
+spool off
+exit
+or
+sqlplus hr/hr@XE >> file_name
+select * from emplyees;
+exit================================================== day 9====================
+
+
+awk
+--used to access rows and columns in a file
+column
+awk '{print $0}' file_name--print all column
+awk '{print $2}' file_name--print 2nd column
+awk '{print $2 $5}' file_name--print 2 and 5 column with out delimiter
+awk '{print $2,$5}' file_name--print 2 and 5 column with space delimiter
+awk '{print $2"-->"$5}' file_name--print 2 and 5th column with --> delimiter
+awk '{print NF}' file_name--print total number of fields--NF--> number of fields
+awk '{print $NF}' file_name--print last field
+awk '{print $(NF-1)}' file_name---print last one before field
+Note: AWK default delimiter is space, if i want to change space delimiter is
+awk '{print $2"-->"$5}' FS="," file_name
+awk F"," '{print $2"-->"$5}' file_name
+row
+awk 'NR==2 {print $0}' file_name---print 2nd row
+awk 'NR==2 {print $2}' file_name---print 2nd row in 2nd column
+awk 'NR==2 || NR==5 {print $0}' file_name---print 2nd and 5th row
+or
+awk 'NR==2;NR==5 {print $0}' file_name---print 2nd and 5th row
+awk 'NR==2,NR==5 {print $0}' file_name---print range of 2 to 5 row
+Display table content without Header:
+awk 'NR!=1 '{print $0}' file_name
+filter condition
+awk '/pattern/ {print $0}' file_name--search pattern in global
+awk '/pattern1|pattern2/ {print $0}' file_ame----search dual pattern in global
+awk '$3~/pattern/ {print $0}' file_name---search pattern in 3rd field---IQ
+awk '$1==20 {print $0}' FS="," emp.csv---Serch exact string in first field
+awk '$4==$5{print $0}' file_name---compare 4th and 5th column
+awk '{print length($3)}' file_name---find length of 3rd column
+cut
+  It just cut the specified charactor in each and every line in the file
+c---charactor
+echo Aimore | cut -c1
+cut -c4 file1.txt---To print characters by position
+cut -c2,5 file1.txt--to print range of char
+cut -c4,6 file1.txt---Prints the fourth and sixth character in each line
+d f---delimiter and field
+cut -d':' -f1 file1.txt
+Overview of putty and winscp====================
+
+
+use vi to edit a file:
+ vi filename
+command mode
+insert mode 
+i--left insert
+I--starting of line
+a--insert right
+A--ending of line
+o--insert new line below
+O--insert new line above
+l--right
+h--left
+j--down
+k--up
+G--> last line of the file
+gg--> first line of the file
+line
+delete
+dd
+replace
+cw
+char
+delete
+x
+yy--copy line
+p--paste
+u--undo
+:w		write (save) the file (only if a name has been specified)
+:w file	write to the specified file (save as)
+:q		quit (only if no changes have been made)
+:wq		save and then quit
+:q!		abandon any changes and quit==============================
+
+
+FTP(File Transfer Protocal)
+--used to transfer file to one server to another server
+--it will not encript files or password
+ftp user_name/pass@remote_server_name---to connect remote server
+ftp> get file_name---Copy file from remote machine to local machine.
+ftp> mget *.sh---copy multiple file from remote machine to local machine
+ftp> put file1.sh---copy file from local file to remote machine
+ftp> mput *.txt---copy multiple file from local machine to remote machine
+ftp> dir---to list the file from  another remote machine
+ftp> delete file1.txt---delete file1.txt file from remote host
+ftp> mdelete *.dat---delete multiple files from romote host
+ftp> quit--- to close or disconnect the ftp connection.
+SCP(Secure copy)
+Copies files within in the same machine
+Copies files from local machine to remote machine.
+Copies files from remote machine to local machine.
+Copies files between two different remote servers.
+scp file1.txt /home/aimore---copying the file from local host to local host
+scp file1.txt user/pass@hostname:/home/aimore---copying the file local host to remote host
+scp user/pass@hostname:/home/aimore/file1.txt .---copying the file remote host to local host
+scp user/pass@hostname:/home/aimore/file.txt user/pass@hostname:/home/rakesh---copying the file one remote host to other remote host===========================================
+
+
+Job Scheduling With Crontab
+cron is derived from Greek and meaning is TIME
+If any job exec auto at the specified time interval, such type of job are called cron jobs.
+The cron jobs can be either a single command or a script.
+We have to configure cron jobs in crontab
+Con jobs are best sutable automating work flows.
+various Crontab commands
+crontab -l
+To list cron jobs which are already configured
+crontab -e
+To edit already existing con jobs and to define new cron jobs
+crontab -r
+To remove all configured cron jobs
+Fromat of crontab
+m h dom moy dow command
+m-->Minutes. The range 0 to 59	
+h-->houres. The range 0 to 23
+dom-->day of month The range 1 to 31
+moy-->Month of Year The range 1 ro 12(JAN, FEB, MAR)
+dow-->Day Of Week. The Range 0 to 6
+          SUN(0), MON(1), SAT(6)
+*-->All
+- --> Range
+, --> Specific
+*/ --> Equal Interval of time
+Command line
+58 10 30 08 0 date >> ~/job.txt
+* * * * * date >> ~/job.txt
+1.Every minutes * * * * *
+2.Every 2  minutes */2 * * * *
+3.Every hours: 0 * * * *  
+3.Every day: 0 0 * * *
+4.Only at 6, 14, 22'o clock: 0 6,14,22 * * *
+5.daily at 1 AM: 0 1 * * *
+6.Every sunday at 1 AM: 0 1 * * 0
+7.Every Weekdays at 1 AM: 0 1 * * 1-5
+8.Every sat and sun at 1 AM: 0 1 * * 6,0
+6.Every 6 months at 1 AM: 0 1 * */6 *
+7.Every hour: 0 * * * *
+8.Every Week: 0 0 * * 0 
+9.Every Month 1st: 0 0 1 * *
+10.Every jan 1st: 0 0 1 1 *
+11.Every Leap year: 0 0 29 2 *
+12:Every feb 14th: 0 0 14 2 *
+ss
+
+
+
+
