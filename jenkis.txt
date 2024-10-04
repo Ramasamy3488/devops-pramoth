@@ -27,8 +27,9 @@ parameters
 backup
 master/slave
 
-
 /etc/yum.repos.d/  amazonlinux.repo --- amazon packages
+
+cat /etc/yum.repos.d/amazonlinux.repo
 
 enable port --- 8080
 
@@ -60,3 +61,29 @@ manage jenkins
 tools
 
 cd /var/lib/jenkins
+
+cd /var/lib/jenkins/workspace
+
+
+Jenkins Architecture: 
+
+Plugin Management : 
+     Gives options to use them to connect a specific tools for our application (Git/maven).
+     Once you install a plugin, it will be considered as tools
+
+Node Configuration: 
+     To tell jenkins which servers to connect (slaves) 
+
+Tools Configuration: (application related URLs)
+     To give the tools location in jenkins to execute the jobs (URLS). (Git, maven, sonarqube, docker, kubernetes, nexus etc)
+
+System configuration: (Master - Configure system) 
+     To run jenkins we need some set of configuration so that can be defined in System configurations  (environmental variables) 
+
+Job Configuration: 
+     what job we are going to execute that can be defined in job configurations. 
+     patches, software release, agents schedulers
+     
+Credencials:
+
+
