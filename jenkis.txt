@@ -86,4 +86,35 @@ Job Configuration:
      
 Credencials:
 
+*********************************************************************************
+
+chenging jenkins port
+  
+   systemctl edit jenkins --full
+    Environment = "Jenkins_port = 8080"    // you can change the port
+   systemctl restart jenkins
+ 
+*******************************************************************************
+
+JOBS:
+
+Artifact --- war file
+
+sh 'echo "Hello world"'
+
+
+GitHub Hooks trigger for GITScm polling   --- enable it in the job
+
+copy the url :- ip:8090
+
+Github repo -> repo setting -> webhook -> add hook -> payroleURL -> paste https://ip:8090/github-webhook/ -> content type : application.json
+->Disable -> send me everything -> add webhook
+
+
+*************************************************************************************
+
+
+
+
+
 

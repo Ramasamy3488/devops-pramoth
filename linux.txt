@@ -189,7 +189,7 @@ rev--> Print the content is reverse string
 head--> will print only the top 10 lines
 head -3--> will print only top 3 lines
 tail -->will print only the last 10 lines (reverse)
-tail --> will print only last 3 lines
+tail -3 --> will print only last 3 lines
 
 ===============================================
 
