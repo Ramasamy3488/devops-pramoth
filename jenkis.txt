@@ -8,16 +8,18 @@ code->git->sonar->maven build->test->package->docker image = CI
 CD - delivery and deployment
      delivery --- manual approval to deliver
      deployment-post-pipeline-no approval-most widely tool
+other CI tools:
      github action
      gitlab ci,circule ci, bamboo ci,travis ci
+
      open soure , free
      cloudbees --- enterprices edition
 
 job
  freestyle
  pipeline
-  declarative
-  scripted
+ - declarative
+ - scripted
  multibranch pipeline
  multiconfig pipeline
  folder
@@ -34,6 +36,7 @@ cat /etc/yum.repos.d/amazonlinux.repo
 enable port --- 8080
 
 ***********************************************************
+install java-17 for aws linux
 
 create Amazon Linux 2 server
 
@@ -91,8 +94,12 @@ Credencials:
 chenging jenkins port
   
    systemctl edit jenkins --full
+
     Environment = "Jenkins_port = 8080"    // you can change the port
    systemctl restart jenkins
+
+changing tomcat port
+   tomcat folder/conf-- nano server.xml->change connector port 8080 to 8081
  
 *******************************************************************************
 
@@ -113,7 +120,25 @@ Github repo -> repo setting -> webhook -> add hook -> payroleURL -> paste https:
 
 *************************************************************************************
 
+maven freestyle
 
+add build step->invoke top-level maven targets->mevan home -> clean/ and add package
+
+*****************************************************************************************
+
+Tomcat deploy .war file
+  install tomcat -> install plugin called publish over SSH -> then system -> SSH server ->add -> key - name - ipaddress - username (ec2-user)
+   - directory(/opt/apache-tomcat-9.0.96/webapps) - key
+
+job -> configure -> post build action -> send build artifact via ssh - name - source file(target/addressbook-2.0.war)
+
+restart tomcat server.
+
+********************************************************************************************
+
+Pipeline Job: 
+  
+   
 
 
 

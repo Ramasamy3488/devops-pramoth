@@ -1,4 +1,0 @@
-#!bin/bash
-
-pkgName = ${1}
-userName = ${id -u}
