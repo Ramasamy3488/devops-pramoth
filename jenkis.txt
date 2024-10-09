@@ -122,12 +122,16 @@ Github repo -> repo setting -> webhook -> add hook -> payroleURL -> paste https:
 
 maven freestyle
 
+tools configure -> maven -> install automatically
+
 add build step->invoke top-level maven targets->mevan home -> clean/ and add package
 
 *****************************************************************************************
 
 Tomcat deploy .war file
-  install tomcat -> install plugin called publish over SSH -> then system -> SSH server ->add -> key - name - ipaddress - username (ec2-user)
+
+  install tomcat tar.gz file -> install plugin called publish over SSH -> then 
+  system -> SSH server ->add -> key - name - ipaddress - username (ec2-user)
    - directory(/opt/apache-tomcat-9.0.96/webapps) - key
 
 job -> configure -> post build action -> send build artifact via ssh - name - source file(target/addressbook-2.0.war)
@@ -137,7 +141,140 @@ restart tomcat server.
 ********************************************************************************************
 
 Pipeline Job: 
+
+pipeline {
+    agent any
+    
+    tools {
+      maven 'Maven_Home'
+    }
+
+    stages {
+        stage('git checkout') {
+            steps {
+               git branch: 'main', url: 'https://github.com/Ramasamy3488/devops-demo-project.git'
+            }
+        }
+        stage('test') {
+            steps {
+               sh 'mvn test'
+            }
+        }
+        stage('build') {
+            steps {
+               sh 'mvn package'
+            }
+        }
+        stage('maven version') {
+            steps {
+               sh 'mvn --version'
+            }
+        }
+    }
+}
+
   
+
+
+
+
+*************************************************************************************************
+
+Email notification:
+
+Extended E-mail Notification
+SMTP server
+smtp.gmail.com
+SMTP Port
+465
+Advanced
+Edited
+Credentials add (jenkins -> mail and generated password from google settings)
+
+kvpramasamy@gmail.com/****** (gmailcreds)
+
+Use SSL
+Default user e-mail suffix -> @gmail.com
+
+
+   SMTP server -> smtp.gmail.com
+Default user e-mail suffix -> @gmail.com
+Advanced
+Edited
+
+Use SMTP Authentication->User Name kvpramasamy@gmail.com
+Password
+ohmwkgpxxnpwhoim (app password generate from google setting)
+
+select -> Use SSL 
+
+SMTP Port -> 465
+
+
+Charset
+UTF-8
+
+Test configuration by sending test e-mail
+Test e-mail recipient
+tokepof597@paxnw.com (genereated from temp mail)
+Test configuration
+Email was successfully sent
+
+
+syntax  snippet - extentedemail :- emailext body: '', subject: 'Pipeline is success', to: 'tokepof597@paxnw.com'
+
+syntax  declarative - post stage or build :- 
+      post {
+         success {
+            // One or more steps need to be included within each condition's block.
+          }
+         failure {
+           // One or more steps need to be included within each condition's block.
+         }
+           unsuccessful {
+          // One or more steps need to be included within each condition's block.
+        }
+    }
+
+
+
+pipeline {
+    agent any
+
+    stages {
+        stage('checkout') {
+            steps {
+                echo 'Hello checkout'
+            }
+        }
+        stage('test') {
+            steps {
+                sh 'lsm'
+            }
+        }
+        stage('build') {
+            steps {
+                echo 'Hello build'
+            }
+        }
+    }
+    
+    post {
+  success {
+    emailext body: '', subject: 'Pipeline is success', to: 'tokepof597@paxnw.com'
+  }
+  failure {
+    emailext body: '', subject: 'Pipeline is failure', to: 'tokepof597@paxnw.com'
+  }
+  unsuccessful {
+    emailext body: '', subject: 'Pipeline is unsuccess', to: 'tokepof597@paxnw.com'
+  }
+}
+
+}
+
+
+****************************************************************************************************
    
 
 
