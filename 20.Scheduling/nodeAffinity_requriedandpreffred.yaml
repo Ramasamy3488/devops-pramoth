@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo
+  labels:
+    app: nginx
+    env: production
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: nginx   
+      env: production
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: production
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: disk-type
+                    operator: In
+                    values:
+                      - ssd 
+                      - hdd
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 50
+              preference:
+                matchExpressions:
+                  - key: region
+                    operator: In
+                    values:
+                      - us-east-1
+                      - us-east-2
+      containers:
+        - name: write-container
+          image: alpine
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              while true; do
+                date >> /var/log/index.html;
+                sleep 10;
+              done
+          volumeMounts:
+            - name: shared-date-logs
+              mountPath: /var/log
+        - name: container-serving-dates
+          image: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: shared-date-logs
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: shared-date-logs
+          emptyDir: {}

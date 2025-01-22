@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-no-schedule
+  labels:
+    app: nginx
+    env: production
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      env: production
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: production
+    spec:
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "special-user"
+          effect: "NoSchedule"
+      containers:
+        - name: write-container
+          image: alpine
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              while true; do
+                date >> /var/log/index.html;
+                sleep 10;
+              done
+          volumeMounts:
+            - name: shared-date-logs
+              mountPath: /var/log
+        - name: container-serving-dates
+          image: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: shared-date-logs
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: shared-date-logs
+          emptyDir: {}
+
+
+#kubectl taint nodes <node-name> dedicated=special-user:NoSchedule
+#This command taints a node (replace <node-name> with the actual node name) so that no pods can be scheduled on it unless they have a matching toleration.

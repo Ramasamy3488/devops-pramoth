@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-prefer-no-schedule
+  labels:
+    app: nginx
+    env: production
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      env: production
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: production
+    spec:
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "special15-user"
+          effect: "PreferNoSchedule"
+      containers:
+        - name: write-container
+          image: alpine
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              while true; do
+                date >> /var/log/index.html;
+                sleep 10;
+              done
+          volumeMounts:
+            - name: shared-date-logs
+              mountPath: /var/log
+        - name: container-serving-dates
+          image: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: shared-date-logs
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: shared-date-logs
+          emptyDir: {}
+
+# taint nodes ip-192-168-15-129.ec2.internal dedicated=special-user:PreferNoSchedule
+# This command applies a taint that suggests the scheduler should avoid placing pods on this node unless they have a matching toleration.kubectl

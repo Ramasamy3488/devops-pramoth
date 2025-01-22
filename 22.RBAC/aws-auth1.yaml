@@ -1,0 +1,16 @@
+apiVersion: v1
+data:
+  mapRoles: |
+    - groups:
+      - system:bootstrappers
+      - system:nodes
+      rolearn: arn:aws:iam::597088042110:role/eksctl-eksdemo1-nodegroup-eksdemo1-NodeInstanceRole-tKNH53gWeeih
+      username: system:node:{{EC2PrivateDNSName}}
+  mapUsers: |
+    - userarn: arn:aws:iam::597088042110:user/demo
+      username: demo
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+

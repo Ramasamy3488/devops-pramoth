@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init-scripts
+data:
+  init.sql: |
+    -- Create a table named 'students'
+    CREATE TABLE students (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100),
+        age INTEGER
+    );
+
+    -- Insert initial data into the 'students' table
+    INSERT INTO students (name, age) VALUES
+    ('Mkyong', 40),
+    ('Ali', 28),
+    ('Teoh', 18);
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: database-pod
+spec:
+  containers:
+  - name: database-container
+    image: postgres:latest
+    ports:
+    - containerPort: 5432
+    env:
+    - name: POSTGRES_USER
+      value: "your_username"  # Replace with your username
+    - name: POSTGRES_PASSWORD
+      value: "your_password"  # Replace with your password
+    - name: POSTGRES_DB
+      value: "your_database"  # Replace with your database name
+    volumeMounts:
+    - mountPath: /docker-entrypoint-initdb.d/
+      name: init-scripts
+    startupProbe:
+      exec:
+        command:
+        - pg_isready
+        - -U
+        - your_username  # Replace with the same username in POSTGRES_USER
+      initialDelaySeconds: 50
+      periodSeconds: 10
+      failureThreshold: 6
+  volumes:
+  - name: init-scripts
+    configMap:
+      name: postgres-init-scripts

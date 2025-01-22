@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo
+  labels:
+    app: nginx
+    env: production
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      env: production
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: production
+    spec:
+      nodeName: ip-192-168-36-130.ec2.internal 
+      containers:
+        - name: write-container
+          image: alpine
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              while true; do
+                date >> /var/log/index.html;
+                sleep 10;
+              done
+          volumeMounts:
+            - name: shared-date-logs
+              mountPath: /var/log
+        - name: container-serving-dates
+          image: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: shared-date-logs
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: shared-date-logs
+          emptyDir: {}

@@ -1,0 +1,53 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo
+  labels:
+    app: nginx
+    env: production
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx   
+      env: production
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: production
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: name
+                    operator: In
+                    values:
+                      - nginx-25  # Ensure that these pods are scheduled with other 'nginx' pods.
+              topologyKey: "kubernetes.io/hostname"  # Pods should be co-located on the same node.
+      containers:
+        - name: write-container
+          image: alpine
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              while true; do
+                date >> /var/log/index.html;
+                sleep 10;
+              done
+          volumeMounts:
+            - name: shared-date-logs
+              mountPath: /var/log
+        - name: container-serving-dates
+          image: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: shared-date-logs
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: shared-date-logs
+          emptyDir: {}
