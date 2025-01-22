@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: demo-rc
+  labels:
+    env: demo-stg
+spec:
+  replicas: 5 
+  selector:
+    matchLabels:
+      app: web
+      env: stg
+  template:
+    metadata:
+      labels:
+        app: web
+        env: stg
+    spec:
+      containers:
+        - name: rc-nginx-con
+          image: nginx:latest
+          ports:
+            - containerPort: 80

@@ -1,0 +1,19 @@
+# Another example, which is simple to understand for basic scenario
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: myapp-container
+    image: busybox:1.28
+    command: ['sh', '-c', 'while true;do echo The app is running!!; sleep 10;done']
+  initContainers:
+  - name: init-myservice
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo Success from init-myservice']
+  - name: init-mydb
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo Success from init-mydb']

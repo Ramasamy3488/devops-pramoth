@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-demo
+  labels:  
+    app: nginx
+    env: prod
+spec:
+  containers:
+    - name: nginx
+      image: nginx:latest
+      ports:
+        - name: nginx-port
+          containerPort: 80  
+          protocol: TCP
+      env:
+        - name: DB_USER
+          value: "admin"
+      resources:  
+        limits: #max
+          cpu: "500m" #0.5 core cup 1000m 1 core cpup
+          memory: "500Mi" #Ki Ti Gi
+        requests: # min 
+          cpu: "200m"
+          memory: "200Mi"
+      volumeMounts:
+        - name: nginx-data
+          mountPath: /usr/share/nginx/html/
+  volumes:
+    - name: nginx-data
+      emptyDir: {}

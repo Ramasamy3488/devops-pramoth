@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+    securityContext:
+      privileged: true  # Container has all capabilities of the host.
+      #allowPrivilegeEscalation: false  # Prevents the container from gaining additional privileges (escalating).
+      readOnlyRootFilesystem: true  # Ensures root filesystem is read-only for enhanced security.
+
+# allowPrivilegeEscalation: false and privileged: true together. When a container is in privileged mode, 
+# it has all the capabilities of the host machine, which inherently allows privilege escalation. Therefore, setting allowPrivilegeEscalation: false contradicts privileged: true.
