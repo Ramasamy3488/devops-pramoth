@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi-with-timeout
+spec:
+  backoffLimit: 5
+  activeDeadlineSeconds: 100
+  template:
+    spec:
+      containers:
+      - name: pi
+        image: perl:5.34.0
+        command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      restartPolicy: Never
+
+# Summary of Behavior
+# The Job calculates π using a Perl script and prints it out.
+# It allows for up to five retries if it fails.
+# The Job must complete within 100 seconds; otherwise, it will be terminated.
+# The use of Never for restartPolicy ensures that if a pod fails, it will not be restarted automatically, which is suitable for jobs where you want to avoid repeated attempts after failure.
+# This configuration effectively demonstrates how Kubernetes Jobs can be configured with specific execution limits and failure handling mechanisms while performing computational tasks like calculating π.

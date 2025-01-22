@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: demojob
+spec:
+  template:
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["/bin/sh"]
+        args: ["-c", "echo 'Welcome to Kubernetes Batch Operations demo'"]
+      restartPolicy: Never #OnFailure

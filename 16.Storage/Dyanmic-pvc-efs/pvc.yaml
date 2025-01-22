@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-dynamic-pvc
+spec:
+  accessModes:
+    - ReadWriteMany # EFS supports read-write by multiple nodes
+  resources:
+    requests:
+      storage: 5Gi # Storage request (not enforced by EFS)
+  storageClassName: efs-sc # Reference to the EFS StorageClass

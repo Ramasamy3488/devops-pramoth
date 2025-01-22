@@ -1,0 +1,20 @@
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: my-service-1
+  labels:
+    kubernetes.io/service-name: my-service
+addressType: IPv4
+ports:
+  - name: http
+    protocol: TCP
+    port: 80  #  match the service targetPort
+endpoints:
+  - addresses:
+      - "192.168.63.21"  # External IP 1
+    conditions:
+      ready: true 
+  - addresses:
+      - "192.168.39.20"  # External IP 2
+    conditions:
+      ready: true  

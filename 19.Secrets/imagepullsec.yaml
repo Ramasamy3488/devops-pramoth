@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu-test-deployment
+  labels:
+    app: ubuntu-test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ubuntu-test
+  template: 
+    metadata:
+      labels:
+        app: ubuntu-test
+    spec:
+      containers:
+        - name: ubuntu-test-container
+          image: promo286/custom-nginx:4.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: my-registry-secret

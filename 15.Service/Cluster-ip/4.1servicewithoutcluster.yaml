@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-backend
+  labels:
+    app: my-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-backend
+  template:
+    metadata:
+      labels:
+        app: my-backend
+    spec:
+      containers:
+      - name: backend-app
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  type: LoadBalancer  # Exposes the Service to the internet
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80  #  to match the container's exposed port
+
+
