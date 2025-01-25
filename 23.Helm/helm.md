@@ -7,6 +7,8 @@
 
 # Helm
 
+choco install kubernetes-helm
+
 ## What is Helm?
 Helm is a package manager for Kubernetes that helps you manage Kubernetes applications. It allows you to define, install, and upgrade even the most complex Kubernetes applications.
 
